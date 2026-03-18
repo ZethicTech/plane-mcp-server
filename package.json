@@ -26,11 +26,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/zethictech/plane-mcp-server.git"
+    "url": "https://github.com/ZethicTech/plane-mcp-server.git"
   },
-  "homepage": "https://github.com/zethictech/plane-mcp-server#readme",
+  "homepage": "https://github.com/ZethicTech/plane-mcp-server#readme",
   "bugs": {
-    "url": "https://github.com/zethictech/plane-mcp-server/issues"
+    "url": "https://github.com/ZethicTech/plane-mcp-server/issues"
   },
   "license": "MIT",
   "dependencies": {
