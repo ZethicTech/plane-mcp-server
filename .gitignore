@@ -1,0 +1,12 @@
+# Claude Desktop local settings
+.claude/
+
+# Excel files
+*.xlsx
+
+# Node
+node_modules/
+dist/
+
+# Build artifacts
+*.tsbuildinfo

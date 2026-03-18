@@ -1,0 +1,111 @@
+import { ToolDef, nullable, nullableBool, nullableStringArray, nullableObject } from './registry.js';
+
+const WS = '/api/v1/workspaces/{__ws}';
+
+export const workItemPropertyTools: ToolDef[] = [
+  {
+    name: 'list_work_item_properties',
+    description: 'List all properties for a work item type.',
+    inputSchema: {
+      type: 'object',
+      required: ['project_id', 'type_id'],
+      properties: {
+        project_id: { type: 'string' },
+        type_id: { type: 'string' },
+        params: nullableObject(),
+      },
+    },
+    method: 'GET',
+    pathTemplate: `${WS}/projects/{project_id}/issue-types/{type_id}/properties/`,
+    pathParams: ['project_id', 'type_id'],
+  },
+  {
+    name: 'create_work_item_property',
+    description: 'Create a new property for a work item type.',
+    inputSchema: {
+      type: 'object',
+      required: ['project_id', 'type_id', 'display_name', 'property_type'],
+      properties: {
+        project_id: { type: 'string' },
+        type_id: { type: 'string' },
+        display_name: { type: 'string' },
+        property_type: { type: 'string' },
+        relation_type: nullable('string'),
+        description: nullable('string'),
+        is_required: nullableBool(),
+        default_value: nullableStringArray(),
+        settings: nullableObject(),
+        is_active: nullableBool(),
+        is_multi: nullableBool(),
+        validation_rules: nullableObject(),
+        external_source: nullable('string'),
+        external_id: nullable('string'),
+        options: { anyOf: [{ items: { additionalProperties: true, type: 'object' }, type: 'array' }, { type: 'null' }], default: null },
+      },
+    },
+    method: 'POST',
+    pathTemplate: `${WS}/projects/{project_id}/issue-types/{type_id}/properties/`,
+    pathParams: ['project_id', 'type_id'],
+  },
+  {
+    name: 'retrieve_work_item_property',
+    description: 'Retrieve a work item property by ID.',
+    inputSchema: {
+      type: 'object',
+      required: ['project_id', 'type_id', 'work_item_property_id'],
+      properties: {
+        project_id: { type: 'string' },
+        type_id: { type: 'string' },
+        work_item_property_id: { type: 'string' },
+      },
+    },
+    method: 'GET',
+    pathTemplate: `${WS}/projects/{project_id}/issue-types/{type_id}/properties/{work_item_property_id}/`,
+    pathParams: ['project_id', 'type_id', 'work_item_property_id'],
+  },
+  {
+    name: 'update_work_item_property',
+    description: 'Update a work item property by ID.',
+    inputSchema: {
+      type: 'object',
+      required: ['project_id', 'type_id', 'work_item_property_id'],
+      properties: {
+        project_id: { type: 'string' },
+        type_id: { type: 'string' },
+        work_item_property_id: { type: 'string' },
+        display_name: nullable('string'),
+        property_type: nullable('string'),
+        relation_type: nullable('string'),
+        description: nullable('string'),
+        is_required: nullableBool(),
+        default_value: nullableStringArray(),
+        settings: nullableObject(),
+        is_active: nullableBool(),
+        is_multi: nullableBool(),
+        validation_rules: nullableObject(),
+        external_source: nullable('string'),
+        external_id: nullable('string'),
+        options: { anyOf: [{ items: { additionalProperties: true, type: 'object' }, type: 'array' }, { type: 'null' }], default: null },
+      },
+    },
+    method: 'PATCH',
+    pathTemplate: `${WS}/projects/{project_id}/issue-types/{type_id}/properties/{work_item_property_id}/`,
+    pathParams: ['project_id', 'type_id', 'work_item_property_id'],
+  },
+  {
+    name: 'delete_work_item_property',
+    description: 'Delete a work item property by ID.',
+    inputSchema: {
+      type: 'object',
+      required: ['project_id', 'type_id', 'work_item_property_id'],
+      properties: {
+        project_id: { type: 'string' },
+        type_id: { type: 'string' },
+        work_item_property_id: { type: 'string' },
+      },
+    },
+    method: 'DELETE',
+    pathTemplate: `${WS}/projects/{project_id}/issue-types/{type_id}/properties/{work_item_property_id}/`,
+    pathParams: ['project_id', 'type_id', 'work_item_property_id'],
+  },
+];

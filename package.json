@@ -1,0 +1,40 @@
+{
+  "name": "@zethictech/plane-mcp-server",
+  "version": "1.0.2",
+  "description": "MCP server for Plane project management — exposes Plane API as Claude-compatible tools",
+  "type": "module",
+  "bin": {
+    "plane-mcp-server": "dist/bin/plane-mcp-server.js"
+  },
+  "main": "./dist/src/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx bin/plane-mcp-server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "mcp",
+    "plane",
+    "project-management",
+    "claude",
+    "anthropic"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
