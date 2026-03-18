@@ -1,4 +1,7 @@
 import { defineConfig } from 'tsup';
+import { readFileSync } from 'fs';
+
+const pkg = JSON.parse(readFileSync('package.json', 'utf-8'));
 
 export default defineConfig({
   entry: ['src/index.ts', 'bin/plane-mcp-server.ts'],
@@ -9,10 +12,7 @@ export default defineConfig({
   splitting: true,
   sourcemap: true,
   dts: false,
-  banner: ({ format }) => {
-    if (format === 'esm') {
-      return { js: '' };
-    }
-    return {};
+  define: {
+    'process.env.PACKAGE_VERSION': JSON.stringify(pkg.version),
   },
 });

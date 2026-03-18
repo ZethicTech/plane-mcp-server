@@ -43,7 +43,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "plane": {
       "command": "npx",
-      "args": ["@zethictech/plane-mcp-server"],
+      "args": ["-y", "@zethictech/plane-mcp-server"],
       "env": {
         "PLANE_BASE_URL": "https://your-plane-instance.com",
         "PLANE_API_KEY": "YOUR_PLANE_API_KEY",

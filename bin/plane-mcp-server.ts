@@ -4,6 +4,30 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { createServer } from '../src/server.js';
 import { PlaneClient } from '../src/plane-client.js';
 
+const args = process.argv.slice(2);
+
+if (args.includes('--version') || args.includes('-v')) {
+  console.log(process.env.PACKAGE_VERSION ?? 'unknown');
+  process.exit(0);
+}
+
+if (args.includes('--help') || args.includes('-h')) {
+  console.log(`Usage: plane-mcp-server [options]
+
+MCP server for Plane project management.
+Runs over stdio — configure in Claude Desktop or Claude Code.
+
+Options:
+  -v, --version   Print version and exit
+  -h, --help      Show this help message
+
+Environment variables (required):
+  PLANE_BASE_URL          Your Plane instance URL
+  PLANE_API_KEY           Personal Plane API token
+  DEFAULT_WORKSPACE_SLUG  Workspace slug from your Plane URL`);
+  process.exit(0);
+}
+
 const PLANE_BASE_URL = process.env.PLANE_BASE_URL || '';
 const DEFAULT_WORKSPACE_SLUG = process.env.DEFAULT_WORKSPACE_SLUG || '';
 const PLANE_API_KEY = process.env.PLANE_API_KEY || '';

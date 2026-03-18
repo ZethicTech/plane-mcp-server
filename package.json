@@ -14,7 +14,8 @@
     "build": "tsup",
     "dev": "tsx bin/plane-mcp-server.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
@@ -23,6 +24,14 @@
     "claude",
     "anthropic"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zethictech/plane-mcp-server.git"
+  },
+  "homepage": "https://github.com/zethictech/plane-mcp-server#readme",
+  "bugs": {
+    "url": "https://github.com/zethictech/plane-mcp-server/issues"
+  },
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0"
