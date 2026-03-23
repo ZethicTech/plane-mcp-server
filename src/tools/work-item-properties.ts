@@ -4,6 +4,7 @@ import {
   nullableBool,
   nullableStringArray,
   nullableObject,
+  nullableObjectArray,
 } from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
@@ -46,13 +47,7 @@ export const workItemPropertyTools: ToolDef[] = [
         validation_rules: nullableObject(),
         external_source: nullable('string'),
         external_id: nullable('string'),
-        options: {
-          anyOf: [
-            { items: { additionalProperties: true, type: 'object' }, type: 'array' },
-            { type: 'null' },
-          ],
-          default: null,
-        },
+        options: nullableObjectArray(),
       },
     },
     method: 'POST',
@@ -97,13 +92,7 @@ export const workItemPropertyTools: ToolDef[] = [
         validation_rules: nullableObject(),
         external_source: nullable('string'),
         external_id: nullable('string'),
-        options: {
-          anyOf: [
-            { items: { additionalProperties: true, type: 'object' }, type: 'array' },
-            { type: 'null' },
-          ],
-          default: null,
-        },
+        options: nullableObjectArray(),
       },
     },
     method: 'PATCH',

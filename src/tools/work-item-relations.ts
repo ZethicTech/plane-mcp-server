@@ -6,7 +6,7 @@ export const workItemRelationTools: ToolDef[] = [
   {
     name: 'list_work_item_relations',
     description:
-      'List all relations for a work item. Relations include: blocks, is_blocked_by, relates_to, and duplicate_of.',
+      'List all relations for a work item. Relations include: blocked_by, blocks, duplicate, and relates_to.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'work_item_id'],

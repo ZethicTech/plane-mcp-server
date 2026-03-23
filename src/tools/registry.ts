@@ -89,7 +89,6 @@ export async function executeToolDef(
   }
 }
 
-// Helper to create nullable string field
 export function nullable(type: string): Record<string, unknown> {
   return { anyOf: [{ type }, { type: 'null' }], default: null };
 }
@@ -108,6 +107,16 @@ export function nullableBool(): Record<string, unknown> {
 
 export function nullableStringArray(): Record<string, unknown> {
   return { anyOf: [{ items: { type: 'string' }, type: 'array' }, { type: 'null' }], default: null };
+}
+
+export function nullableObjectArray(): Record<string, unknown> {
+  return {
+    anyOf: [
+      { items: { additionalProperties: true, type: 'object' }, type: 'array' },
+      { type: 'null' },
+    ],
+    default: null,
+  };
 }
 
 export function nullableObject(): Record<string, unknown> {
