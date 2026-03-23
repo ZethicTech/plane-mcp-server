@@ -13,15 +13,21 @@ permissions:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22]
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org
 
       - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: npm run lint
+      - run: npm run format
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
