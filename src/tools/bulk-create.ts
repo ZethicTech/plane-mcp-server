@@ -26,7 +26,7 @@ async function createOneItem(
       const message = err instanceof Error ? err.message : String(err);
       if (message.startsWith('Plane API error 429')) {
         if (attempt === MAX_RETRIES) {
-          throw new Error(`Rate limited after ${MAX_RETRIES} retries`);
+          throw new Error(`Rate limited after ${MAX_RETRIES} retries`, { cause: err });
         }
         const waitSec = Math.min(5 * Math.pow(2, attempt), 60);
         await sleep(waitSec * 1000);
@@ -83,9 +83,10 @@ async function handleBulkCreate(
   }
 
   const summary = `Created ${created.length} items. Failures: ${failures.length}.`;
-  const detail = failures.length > 0
-    ? `\n${JSON.stringify(created)}\nFailures:\n${JSON.stringify(failures)}`
-    : `\n${JSON.stringify(created)}`;
+  const detail =
+    failures.length > 0
+      ? `\n${JSON.stringify(created)}\nFailures:\n${JSON.stringify(failures)}`
+      : `\n${JSON.stringify(created)}`;
 
   return summary + detail;
 }

@@ -1,9 +1,6 @@
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
-import { PlaneClient, PlaneClientConfig } from './plane-client.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
+import { PlaneClient } from './plane-client.js';
 import { ToolDef, executeToolDef, getToolAnnotations } from './tools/registry.js';
 
 // Import all tool definitions

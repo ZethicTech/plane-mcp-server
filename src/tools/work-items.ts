@@ -1,11 +1,12 @@
-import { ToolDef, nullable, nullableInt, nullableNum, nullableBool, nullableStringArray, nullableObject } from './registry.js';
+import { ToolDef, nullable, nullableInt, nullableNum, nullableStringArray } from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
 
 export const workItemTools: ToolDef[] = [
   {
     name: 'list_work_items',
-    description: 'List work items (issues) in a project. Supports filtering, sorting, and pagination.',
+    description:
+      'List work items (issues) in a project. Supports filtering, sorting, and pagination.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],
@@ -33,10 +34,22 @@ export const workItemTools: ToolDef[] = [
     pathTemplate: `${WS}/projects/{project_id}/issues/`,
     pathParams: ['project_id'],
     queryParams: [
-      'cursor', 'expand', 'fields', 'order_by', 'per_page',
-      'assignees', 'created_by', 'labels', 'priority', 'state',
-      'subscriber', 'target_date', 'start_date', 'type',
-      'external_id', 'external_source',
+      'cursor',
+      'expand',
+      'fields',
+      'order_by',
+      'per_page',
+      'assignees',
+      'created_by',
+      'labels',
+      'priority',
+      'state',
+      'subscriber',
+      'target_date',
+      'start_date',
+      'type',
+      'external_id',
+      'external_source',
     ],
   },
   {
@@ -159,12 +172,16 @@ export const workItemTools: ToolDef[] = [
   },
   {
     name: 'retrieve_work_item_by_identifier',
-    description: 'Retrieve a work item by its human-readable identifier (e.g. "DEV-42"). Provide the project identifier (e.g. "DEV") and the issue sequence number (e.g. 42).',
+    description:
+      'Retrieve a work item by its human-readable identifier (e.g. "DEV-42"). Provide the project identifier (e.g. "DEV") and the issue sequence number (e.g. 42).',
     inputSchema: {
       type: 'object',
       required: ['project_identifier', 'issue_identifier'],
       properties: {
-        project_identifier: { type: 'string', description: 'The project identifier prefix (e.g. "DEV").' },
+        project_identifier: {
+          type: 'string',
+          description: 'The project identifier prefix (e.g. "DEV").',
+        },
         issue_identifier: { type: 'integer', description: 'The issue sequence number (e.g. 42).' },
         expand: nullable('string'),
         fields: nullable('string'),
