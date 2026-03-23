@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const workspaceTools: ToolDef[] = [
   {
     name: 'get_me',
-    description: 'Get the currently authenticated user.',
+    description:
+      'Get the currently authenticated user. Returns the user profile including their UUID, which can be used as an assignee or cycle owner in other tools.',
     inputSchema: {
       type: 'object',
       properties: {},

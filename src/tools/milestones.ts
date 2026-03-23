@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const milestoneTools: ToolDef[] = [
   {
     name: 'list_milestones',
-    description: 'List all milestones in a project.',
+    description:
+      'List all milestones in a project. Milestones represent key delivery dates or goals. Returns milestone IDs needed for managing milestone work items.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],

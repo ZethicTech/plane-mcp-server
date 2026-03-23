@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const labelTools: ToolDef[] = [
   {
     name: 'list_labels',
-    description: 'List all labels in a project.',
+    description:
+      'List all labels in a project. Call this to get label UUIDs needed for creating or filtering work items.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],

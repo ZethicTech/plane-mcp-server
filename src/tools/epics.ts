@@ -12,7 +12,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const epicTools: ToolDef[] = [
   {
     name: 'list_epics',
-    description: 'List all epics in a project.',
+    description:
+      'List all epics in a project. Epics are large bodies of work that span multiple work items.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],

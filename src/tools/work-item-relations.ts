@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const workItemRelationTools: ToolDef[] = [
   {
     name: 'list_work_item_relations',
-    description: 'List all relations for a work item.',
+    description:
+      'List all relations for a work item. Relations include: blocks, is_blocked_by, relates_to, and duplicate_of.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'work_item_id'],
