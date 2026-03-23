@@ -75,11 +75,12 @@ const ALL_TOOLS: ToolDef[] = [
 ## Tool Description Guidelines
 
 Good descriptions tell the LLM:
+
 - **When** to use the tool
 - **What IDs** are needed and **where** to get them
 - Any key parameter details (date formats, enum values)
 
-Example: *"Create a new cycle (sprint) in a project. The owned_by field requires a user UUID — get it from get_workspace_members or get_me. Dates should be YYYY-MM-DD format."*
+Example: _"Create a new cycle (sprint) in a project. The owned_by field requires a user UUID — get it from get_workspace_members or get_me. Dates should be YYYY-MM-DD format."_
 
 ## Code Style
 
