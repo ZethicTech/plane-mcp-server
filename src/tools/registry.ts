@@ -111,5 +111,8 @@ export function nullableStringArray(): Record<string, unknown> {
 }
 
 export function nullableObject(): Record<string, unknown> {
-  return { anyOf: [{ additionalProperties: true, type: 'object' }, { type: 'null' }], default: null };
+  return {
+    anyOf: [{ additionalProperties: true, type: 'object' }, { type: 'null' }],
+    default: null,
+  };
 }

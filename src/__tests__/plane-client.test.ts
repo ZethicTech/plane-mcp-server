@@ -18,15 +18,11 @@ describe('PlaneClient', () => {
   });
 
   it('builds workspace paths', () => {
-    expect(client.workspacePath('projects/')).toBe(
-      '/api/v1/workspaces/my-workspace/projects/',
-    );
+    expect(client.workspacePath('projects/')).toBe('/api/v1/workspaces/my-workspace/projects/');
   });
 
   it('builds workspace paths stripping leading slash', () => {
-    expect(client.workspacePath('/members/')).toBe(
-      '/api/v1/workspaces/my-workspace/members/',
-    );
+    expect(client.workspacePath('/members/')).toBe('/api/v1/workspaces/my-workspace/members/');
   });
 
   it('returns workspace slug', () => {

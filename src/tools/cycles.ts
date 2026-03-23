@@ -95,7 +95,8 @@ export const cycleTools: ToolDef[] = [
   },
   {
     name: 'list_cycle_work_items',
-    description: 'List all work items in a specific cycle. Requires project_id and cycle_id \u2014 call list_cycles first to get the cycle_id.',
+    description:
+      'List all work items in a specific cycle. Requires project_id and cycle_id \u2014 call list_cycles first to get the cycle_id.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'cycle_id'],

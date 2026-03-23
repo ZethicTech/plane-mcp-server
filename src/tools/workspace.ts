@@ -16,7 +16,8 @@ export const workspaceTools: ToolDef[] = [
   },
   {
     name: 'get_workspace_members',
-    description: 'Get all workspace members with their user IDs. Call this to find assignee IDs before creating or filtering work items by assignee.',
+    description:
+      'Get all workspace members with their user IDs. Call this to find assignee IDs before creating or filtering work items by assignee.',
     inputSchema: {
       type: 'object',
       properties: {},

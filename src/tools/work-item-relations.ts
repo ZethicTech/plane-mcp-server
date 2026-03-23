@@ -34,7 +34,10 @@ export const workItemRelationTools: ToolDef[] = [
         project_id: { type: 'string' },
         work_item_id: { type: 'string' },
         related_issue: { type: 'string', description: 'UUID of the related work item.' },
-        relation_type: { type: 'string', description: 'Type of relation (e.g. "blocked_by", "blocks", "duplicate", "relates_to").' },
+        relation_type: {
+          type: 'string',
+          description: 'Type of relation (e.g. "blocked_by", "blocks", "duplicate", "relates_to").',
+        },
         external_source: nullable('string'),
         external_id: nullable('string'),
       },

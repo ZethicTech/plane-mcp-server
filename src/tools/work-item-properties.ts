@@ -1,4 +1,10 @@
-import { ToolDef, nullable, nullableBool, nullableStringArray, nullableObject } from './registry.js';
+import {
+  ToolDef,
+  nullable,
+  nullableBool,
+  nullableStringArray,
+  nullableObject,
+} from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
 
@@ -40,7 +46,13 @@ export const workItemPropertyTools: ToolDef[] = [
         validation_rules: nullableObject(),
         external_source: nullable('string'),
         external_id: nullable('string'),
-        options: { anyOf: [{ items: { additionalProperties: true, type: 'object' }, type: 'array' }, { type: 'null' }], default: null },
+        options: {
+          anyOf: [
+            { items: { additionalProperties: true, type: 'object' }, type: 'array' },
+            { type: 'null' },
+          ],
+          default: null,
+        },
       },
     },
     method: 'POST',
@@ -85,7 +97,13 @@ export const workItemPropertyTools: ToolDef[] = [
         validation_rules: nullableObject(),
         external_source: nullable('string'),
         external_id: nullable('string'),
-        options: { anyOf: [{ items: { additionalProperties: true, type: 'object' }, type: 'array' }, { type: 'null' }], default: null },
+        options: {
+          anyOf: [
+            { items: { additionalProperties: true, type: 'object' }, type: 'array' },
+            { type: 'null' },
+          ],
+          default: null,
+        },
       },
     },
     method: 'PATCH',

@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const projectTools: ToolDef[] = [
   {
     name: 'list_projects',
-    description: 'List all projects in the workspace. Call this first whenever you need a project_id to pass to other tools.',
+    description:
+      'List all projects in the workspace. Call this first whenever you need a project_id to pass to other tools.',
     inputSchema: {
       type: 'object',
       properties: {

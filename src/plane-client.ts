@@ -39,7 +39,9 @@ export class PlaneClient {
   ): Promise<unknown> {
     let url = `${this.baseUrl}${path}`;
     if (queryParams) {
-      const filtered = Object.entries(queryParams).filter(([, v]) => v !== undefined && v !== null && v !== '');
+      const filtered = Object.entries(queryParams).filter(
+        ([, v]) => v !== undefined && v !== null && v !== '',
+      );
       if (filtered.length > 0) {
         url += '?' + new URLSearchParams(filtered).toString();
       }
@@ -47,12 +49,15 @@ export class PlaneClient {
 
     const headers: Record<string, string> = {
       'x-api-key': this.apiKey,
-      'Accept': 'application/json',
+      Accept: 'application/json',
     };
 
     const options: RequestInit = { method, headers };
 
-    if (body && (method === 'POST' || method === 'PATCH' || method === 'PUT' || method === 'DELETE')) {
+    if (
+      body &&
+      (method === 'POST' || method === 'PATCH' || method === 'PUT' || method === 'DELETE')
+    ) {
       const cleaned = this.stripNulls(body);
       headers['Content-Type'] = 'application/json';
       options.body = JSON.stringify(cleaned);
