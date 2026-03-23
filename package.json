@@ -7,6 +7,13 @@
     "plane-mcp-server": "dist/bin/plane-mcp-server.js"
   },
   "main": "./dist/src/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "author": "ZethicTech",
   "files": [
     "dist"
   ],
