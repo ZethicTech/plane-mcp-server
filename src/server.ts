@@ -57,7 +57,7 @@ for (const tool of ALL_TOOLS) {
 
 export function createServer(resolveClient: () => PlaneClient): Server {
   const server = new Server(
-    { name: 'plane-mcp-server', version: '1.0.0' },
+    { name: 'plane-mcp-server', version: process.env.PACKAGE_VERSION ?? '0.0.0' },
     { capabilities: { tools: {} } },
   );
 
