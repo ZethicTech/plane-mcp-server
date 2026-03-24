@@ -8,7 +8,7 @@ updates:
     groups:
       all-npm:
         patterns:
-          - "*"
+          - '*'
 
   - package-ecosystem: github-actions
     directory: /
@@ -18,4 +18,4 @@ updates:
     groups:
       all-actions:
         patterns:
-          - "*"
+          - '*'
