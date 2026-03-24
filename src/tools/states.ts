@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const stateTools: ToolDef[] = [
   {
     name: 'list_states',
-    description: 'List all states (statuses) in a project.',
+    description:
+      'List all states (statuses) in a project. Call this to get state UUIDs needed for creating or filtering work items. States are grouped by: backlog, unstarted, started, completed, cancelled.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],
@@ -25,7 +26,8 @@ export const stateTools: ToolDef[] = [
   },
   {
     name: 'create_state',
-    description: 'Create a new state in a project.',
+    description:
+      'Create a new state in a project. The group field determines where it appears in the workflow: backlog, unstarted, started, completed, or cancelled.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'name', 'color'],

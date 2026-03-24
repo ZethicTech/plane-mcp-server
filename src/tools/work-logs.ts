@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const workLogTools: ToolDef[] = [
   {
     name: 'list_work_logs',
-    description: 'List time-tracking entries for a work item. Requires project_id and work_item_id.',
+    description:
+      'List time-tracking entries (work logs) for a work item. Each entry records hours spent by a user. Requires project_id and work_item_id.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'work_item_id'],

@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const cycleTools: ToolDef[] = [
   {
     name: 'list_cycles',
-    description: 'List all cycles in a project.',
+    description:
+      'List all cycles (sprints) in a project. Returns cycle IDs needed for managing cycle work items.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],
@@ -20,7 +21,8 @@ export const cycleTools: ToolDef[] = [
   },
   {
     name: 'create_cycle',
-    description: 'Create a new cycle in a project.',
+    description:
+      'Create a new cycle (sprint) in a project. The owned_by field requires a user UUID — get it from get_workspace_members or get_me. Dates should be YYYY-MM-DD format.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'name', 'owned_by'],
@@ -95,7 +97,8 @@ export const cycleTools: ToolDef[] = [
   },
   {
     name: 'list_cycle_work_items',
-    description: 'List all work items in a specific cycle. Requires project_id and cycle_id \u2014 call list_cycles first to get the cycle_id.',
+    description:
+      'List all work items in a specific cycle. Requires project_id and cycle_id \u2014 call list_cycles first to get the cycle_id.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'cycle_id'],
@@ -111,7 +114,8 @@ export const cycleTools: ToolDef[] = [
   },
   {
     name: 'add_work_items_to_cycle',
-    description: 'Add work items to a cycle.',
+    description:
+      'Add work items to a cycle. Provide an array of work item UUIDs in issue_ids. Get work item IDs from list_work_items and cycle_id from list_cycles.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'cycle_id', 'issue_ids'],
@@ -143,7 +147,8 @@ export const cycleTools: ToolDef[] = [
   },
   {
     name: 'transfer_cycle_work_items',
-    description: 'Transfer work items from one cycle to another.',
+    description:
+      'Transfer incomplete work items from one cycle to another. The cycle_id is the source cycle; new_cycle_id is the destination.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'cycle_id', 'new_cycle_id'],

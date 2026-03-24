@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const moduleTools: ToolDef[] = [
   {
     name: 'list_modules',
-    description: 'List all modules in a project.',
+    description:
+      'List all modules in a project. Modules group related work items by feature or theme. Returns module IDs needed for managing module work items.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],
@@ -20,7 +21,8 @@ export const moduleTools: ToolDef[] = [
   },
   {
     name: 'create_module',
-    description: 'Create a new module in a project.',
+    description:
+      'Create a new module in a project. The lead field requires a user UUID from get_workspace_members. Members is an array of user UUIDs. Dates should be YYYY-MM-DD format.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'name'],
@@ -113,7 +115,8 @@ export const moduleTools: ToolDef[] = [
   },
   {
     name: 'add_work_items_to_module',
-    description: 'Add work items to a module.',
+    description:
+      'Add work items to a module. Provide an array of work item UUIDs in issue_ids. Get work item IDs from list_work_items and module_id from list_modules.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'module_id', 'issue_ids'],

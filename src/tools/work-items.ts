@@ -1,11 +1,12 @@
-import { ToolDef, nullable, nullableInt, nullableNum, nullableBool, nullableStringArray, nullableObject } from './registry.js';
+import { ToolDef, nullable, nullableInt, nullableNum, nullableStringArray } from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
 
 export const workItemTools: ToolDef[] = [
   {
     name: 'list_work_items',
-    description: 'List work items (issues) in a project. Supports filtering, sorting, and pagination.',
+    description:
+      'List work items (issues) in a project. Supports filtering by priority, state, assignees, labels, and dates. Use expand=relations,assignees,labels for richer data. Results are paginated — use the cursor from the response to fetch the next page.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],
@@ -33,15 +34,28 @@ export const workItemTools: ToolDef[] = [
     pathTemplate: `${WS}/projects/{project_id}/issues/`,
     pathParams: ['project_id'],
     queryParams: [
-      'cursor', 'expand', 'fields', 'order_by', 'per_page',
-      'assignees', 'created_by', 'labels', 'priority', 'state',
-      'subscriber', 'target_date', 'start_date', 'type',
-      'external_id', 'external_source',
+      'cursor',
+      'expand',
+      'fields',
+      'order_by',
+      'per_page',
+      'assignees',
+      'created_by',
+      'labels',
+      'priority',
+      'state',
+      'subscriber',
+      'target_date',
+      'start_date',
+      'type',
+      'external_id',
+      'external_source',
     ],
   },
   {
     name: 'create_work_item',
-    description: 'Create a new work item (issue) in a project.',
+    description:
+      'Create a new work item (issue) in a project. Requires project_id from list_projects. Use list_states to get state_id, get_workspace_members for assignee UUIDs, and list_labels for label UUIDs. Dates should be YYYY-MM-DD format. Priority is one of: urgent, high, medium, low, none.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'name'],
@@ -69,7 +83,8 @@ export const workItemTools: ToolDef[] = [
   },
   {
     name: 'retrieve_work_item',
-    description: 'Retrieve a single work item by its UUID.',
+    description:
+      'Retrieve a single work item by its UUID. Use expand=relations,assignees,labels for full details. If you have a human-readable identifier like DEV-42, use retrieve_work_item_by_identifier instead.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'work_item_id'],
@@ -87,7 +102,8 @@ export const workItemTools: ToolDef[] = [
   },
   {
     name: 'update_work_item',
-    description: 'Update an existing work item.',
+    description:
+      'Update an existing work item. Only include fields you want to change — omitted fields are left unchanged. Use list_states for state_id, get_workspace_members for assignee UUIDs, list_labels for label UUIDs.',
     inputSchema: {
       type: 'object',
       required: ['project_id', 'work_item_id'],
@@ -131,7 +147,8 @@ export const workItemTools: ToolDef[] = [
   },
   {
     name: 'search_work_items',
-    description: 'Search for work items across the workspace by text query.',
+    description:
+      'Search for work items across the entire workspace by text query. Matches against item names and descriptions. Use this when you need to find items without knowing the project_id.',
     inputSchema: {
       type: 'object',
       required: ['query'],
@@ -159,12 +176,16 @@ export const workItemTools: ToolDef[] = [
   },
   {
     name: 'retrieve_work_item_by_identifier',
-    description: 'Retrieve a work item by its human-readable identifier (e.g. "DEV-42"). Provide the project identifier (e.g. "DEV") and the issue sequence number (e.g. 42).',
+    description:
+      'Retrieve a work item by its human-readable identifier (e.g. "DEV-42"). Provide the project identifier (e.g. "DEV") and the issue sequence number (e.g. 42).',
     inputSchema: {
       type: 'object',
       required: ['project_identifier', 'issue_identifier'],
       properties: {
-        project_identifier: { type: 'string', description: 'The project identifier prefix (e.g. "DEV").' },
+        project_identifier: {
+          type: 'string',
+          description: 'The project identifier prefix (e.g. "DEV").',
+        },
         issue_identifier: { type: 'integer', description: 'The issue sequence number (e.g. 42).' },
         expand: nullable('string'),
         fields: nullable('string'),

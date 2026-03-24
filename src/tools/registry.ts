@@ -23,10 +23,16 @@ function annotationsForTool(name: string) {
 
 export const getToolAnnotations = annotationsForTool;
 
+const SAFE_PATH_PARAM = /^[a-zA-Z0-9_-]+$/;
+
 function buildPath(template: string, args: Record<string, unknown>): string {
   let path = template;
   for (const [key, value] of Object.entries(args)) {
-    path = path.replace(`{${key}}`, String(value));
+    const str = String(value);
+    if (!SAFE_PATH_PARAM.test(str)) {
+      throw new Error(`Invalid path parameter "${key}": contains unsafe characters`);
+    }
+    path = path.replace(`{${key}}`, str);
   }
   return path;
 }
@@ -89,7 +95,6 @@ export async function executeToolDef(
   }
 }
 
-// Helper to create nullable string field
 export function nullable(type: string): Record<string, unknown> {
   return { anyOf: [{ type }, { type: 'null' }], default: null };
 }
@@ -110,6 +115,19 @@ export function nullableStringArray(): Record<string, unknown> {
   return { anyOf: [{ items: { type: 'string' }, type: 'array' }, { type: 'null' }], default: null };
 }
 
+export function nullableObjectArray(): Record<string, unknown> {
+  return {
+    anyOf: [
+      { items: { additionalProperties: true, type: 'object' }, type: 'array' },
+      { type: 'null' },
+    ],
+    default: null,
+  };
+}
+
 export function nullableObject(): Record<string, unknown> {
-  return { anyOf: [{ additionalProperties: true, type: 'object' }, { type: 'null' }], default: null };
+  return {
+    anyOf: [{ additionalProperties: true, type: 'object' }, { type: 'null' }],
+    default: null,
+  };
 }

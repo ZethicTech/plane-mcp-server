@@ -69,7 +69,9 @@ export const intakeTools: ToolDef[] = [
     pathTemplate: `${WS}/projects/{project_id}/intake-issues/{work_item_id}/`,
     pathParams: ['project_id', 'work_item_id'],
     handler: async (client, args) => {
-      const path = client.workspacePath(`projects/${args.project_id}/intake-issues/${args.work_item_id}/`);
+      const path = client.workspacePath(
+        `projects/${args.project_id}/intake-issues/${args.work_item_id}/`,
+      );
       return client.patch(path, args.data as Record<string, unknown>);
     },
   },

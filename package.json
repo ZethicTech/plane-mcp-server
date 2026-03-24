@@ -1,12 +1,19 @@
 {
   "name": "@zethictech/plane-mcp-server",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "MCP server for Plane project management — exposes Plane API as Claude-compatible tools",
   "type": "module",
   "bin": {
     "plane-mcp-server": "dist/bin/plane-mcp-server.js"
   },
   "main": "./dist/src/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
+  },
+  "author": "ZethicTech",
   "files": [
     "dist"
   ],
@@ -15,6 +22,9 @@
     "dev": "tsx bin/plane-mcp-server.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -37,10 +47,15 @@
     "@modelcontextprotocol/sdk": "^1.12.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^22.0.0",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
     "tsup": "^8.0.0",
     "tsx": "^4.0.0",
     "typescript": "^5.7.0",
+    "typescript-eslint": "^8.57.1",
     "vitest": "^3.0.0"
   },
   "engines": {

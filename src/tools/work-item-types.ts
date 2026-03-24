@@ -1,4 +1,10 @@
-import { ToolDef, nullable, nullableBool, nullableStringArray, nullableObject } from './registry.js';
+import {
+  ToolDef,
+  nullable,
+  nullableBool,
+  nullableStringArray,
+  nullableObject,
+} from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
 

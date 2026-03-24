@@ -1,9 +1,6 @@
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
-import { PlaneClient, PlaneClientConfig } from './plane-client.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
+import { PlaneClient } from './plane-client.js';
 import { ToolDef, executeToolDef, getToolAnnotations } from './tools/registry.js';
 
 // Import all tool definitions
@@ -60,7 +57,7 @@ for (const tool of ALL_TOOLS) {
 
 export function createServer(resolveClient: () => PlaneClient): Server {
   const server = new Server(
-    { name: 'plane-mcp-server', version: '1.0.0' },
+    { name: 'plane-mcp-server', version: process.env.PACKAGE_VERSION ?? '0.0.0' },
     { capabilities: { tools: {} } },
   );
 

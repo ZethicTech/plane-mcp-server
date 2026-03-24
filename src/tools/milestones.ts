@@ -5,7 +5,8 @@ const WS = '/api/v1/workspaces/{__ws}';
 export const milestoneTools: ToolDef[] = [
   {
     name: 'list_milestones',
-    description: 'List all milestones in a project.',
+    description:
+      'List all milestones in a project. Milestones represent key delivery dates or goals. Returns milestone IDs needed for managing milestone work items.',
     inputSchema: {
       type: 'object',
       required: ['project_id'],
@@ -133,7 +134,9 @@ export const milestoneTools: ToolDef[] = [
     pathTemplate: `${WS}/projects/{project_id}/milestones/{milestone_id}/milestone-issues/`,
     pathParams: ['project_id', 'milestone_id'],
     handler: async (client, args) => {
-      const path = client.workspacePath(`projects/${args.project_id}/milestones/${args.milestone_id}/milestone-issues/`);
+      const path = client.workspacePath(
+        `projects/${args.project_id}/milestones/${args.milestone_id}/milestone-issues/`,
+      );
       return client.request('DELETE', path, { issue_ids: args.issue_ids });
     },
   },
