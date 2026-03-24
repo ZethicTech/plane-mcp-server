@@ -11,7 +11,7 @@ export default defineConfig({
   clean: true,
   splitting: true,
   sourcemap: true,
-  dts: true,
+  dts: { entry: ['src/index.ts'] },
   define: {
     'process.env.PACKAGE_VERSION': JSON.stringify(pkg.version),
   },
