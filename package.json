@@ -1,6 +1,6 @@
 {
   "name": "@zethictech/plane-mcp-server",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "MCP server for Plane project management — exposes Plane API as Claude-compatible tools",
   "type": "module",
   "bin": {
@@ -29,10 +29,18 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
+    "model-context-protocol",
     "plane",
+    "plane-api",
     "project-management",
+    "issue-tracker",
+    "work-items",
     "claude",
-    "anthropic"
+    "anthropic",
+    "ai-tools",
+    "llm",
+    "automation"
   ],
   "repository": {
     "type": "git",
