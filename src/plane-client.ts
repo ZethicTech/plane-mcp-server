@@ -72,8 +72,13 @@ export class PlaneClient {
 
     const text = await response.text();
 
+    if (text.length > MAX_RESPONSE_BYTES) {
+      throw new Error(`Response too large (${text.length} bytes)`);
+    }
+
     if (!response.ok) {
-      throw new Error(`Plane API error ${response.status}: ${text.slice(0, 500)}`);
+      process.stderr.write(`Plane API error ${response.status}: ${text.slice(0, 500)}\n`);
+      throw new Error(`Plane API error ${response.status}`);
     }
 
     if (!text || text.trim() === '') {
