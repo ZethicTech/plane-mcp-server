@@ -130,10 +130,6 @@ npx --yes @zethictech/plane-mcp-server
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and how to add new tools.
 
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for release history.
-
 ## License
 
 MIT
