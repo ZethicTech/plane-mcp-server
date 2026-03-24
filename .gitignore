@@ -4,6 +4,9 @@
 # Excel files
 *.xlsx
 
+# Environment variables
+.env*
+
 # Node
 node_modules/
 dist/
