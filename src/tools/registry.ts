@@ -23,10 +23,16 @@ function annotationsForTool(name: string) {
 
 export const getToolAnnotations = annotationsForTool;
 
+const SAFE_PATH_PARAM = /^[a-zA-Z0-9_-]+$/;
+
 function buildPath(template: string, args: Record<string, unknown>): string {
   let path = template;
   for (const [key, value] of Object.entries(args)) {
-    path = path.replace(`{${key}}`, String(value));
+    const str = String(value);
+    if (!SAFE_PATH_PARAM.test(str)) {
+      throw new Error(`Invalid path parameter "${key}": contains unsafe characters`);
+    }
+    path = path.replace(`{${key}}`, str);
   }
   return path;
 }
