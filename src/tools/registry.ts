@@ -8,6 +8,7 @@ export interface ToolDef {
   pathTemplate: string;
   pathParams: string[];
   queryParams?: string[];
+  bodyRenames?: Record<string, string>;
   handler?: (client: PlaneClient, args: Record<string, unknown>) => Promise<unknown>;
 }
 
@@ -75,9 +76,10 @@ export async function executeToolDef(
 
   const bodyArgs: Record<string, unknown> = {};
   const skipKeys = new Set([...def.pathParams, ...(def.queryParams || []), 'params', '__ws']);
+  const renames = def.bodyRenames || {};
   for (const [key, value] of Object.entries(args)) {
     if (!skipKeys.has(key) && value !== undefined && value !== null) {
-      bodyArgs[key] = value;
+      bodyArgs[renames[key] || key] = value;
     }
   }
 
