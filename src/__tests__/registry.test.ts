@@ -62,6 +62,68 @@ describe('executeToolDef', () => {
     expect(capturedPath).toBe('/api/v1/workspaces/my-ws/projects/abc-123/');
   });
 
+  it('renames body keys via bodyRenames', async () => {
+    let capturedBody: Record<string, unknown> | undefined;
+
+    const mockClient = {
+      post: async (_path: string, body: Record<string, unknown>) => {
+        capturedBody = body;
+        return { ok: true };
+      },
+    } as unknown as PlaneClient;
+
+    const tool: ToolDef = {
+      name: 'update_tool',
+      description: 'test',
+      inputSchema: { type: 'object', properties: {} },
+      method: 'POST',
+      pathTemplate: '/api/v1/workspaces/{__ws}/projects/{project_id}/issues/',
+      pathParams: ['project_id'],
+      bodyRenames: { state_id: 'state', parent_id: 'parent' },
+    };
+
+    await executeToolDef(tool, mockClient, {
+      __ws: 'ws',
+      project_id: 'p1',
+      state_id: 'state-uuid',
+      parent_id: 'parent-uuid',
+      name: 'Test Issue',
+    });
+
+    expect(capturedBody).toEqual({
+      state: 'state-uuid',
+      parent: 'parent-uuid',
+      name: 'Test Issue',
+    });
+    expect(capturedBody).not.toHaveProperty('state_id');
+    expect(capturedBody).not.toHaveProperty('parent_id');
+  });
+
+  it('throws on conflicting body arguments from bodyRenames', async () => {
+    const mockClient = {
+      post: async () => ({ ok: true }),
+    } as unknown as PlaneClient;
+
+    const tool: ToolDef = {
+      name: 'update_tool',
+      description: 'test',
+      inputSchema: { type: 'object', properties: {} },
+      method: 'POST',
+      pathTemplate: '/api/v1/workspaces/{__ws}/projects/{project_id}/issues/',
+      pathParams: ['project_id'],
+      bodyRenames: { state_id: 'state' },
+    };
+
+    await expect(
+      executeToolDef(tool, mockClient, {
+        __ws: 'ws',
+        project_id: 'p1',
+        state_id: 'state-uuid-from-id',
+        state: 'state-uuid-direct',
+      }),
+    ).rejects.toThrow(/Conflicting body arguments.*state_id.*state/);
+  });
+
   it('uses custom handler when provided', async () => {
     let handlerCalled = false;
 
