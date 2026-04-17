@@ -1,7 +1,7 @@
 {
   "name": "@zethictech/plane-mcp-server",
-  "version": "2.0.0",
-  "description": "MCP server for Plane project management — exposes Plane API as Claude-compatible tools",
+  "version": "2.0.1",
+  "description": "Connect your self-hosted Plane workspace to any MCP-compatible AI client to manage projects, work items, cycles and modules.",
   "type": "module",
   "bin": {
     "plane-mcp-server": "dist/bin/plane-mcp-server.js"
