@@ -90,12 +90,12 @@ claude mcp add plane \
 
 ### Environment Variables
 
-| Variable                 | Required | Description                                          |
-| ------------------------ | -------- | ---------------------------------------------------- |
-| `PLANE_BASE_URL`         | Yes      | Your Plane instance URL                              |
-| `PLANE_API_KEY`          | Yes      | Personal Plane API token                             |
-| `DEFAULT_WORKSPACE_SLUG` | Yes      | Workspace slug from your Plane URL                   |
-| `PLANE_MCP_EXTENDED`     | No       | Set to `true` to enable all 108 tools (default: 77)  |
+| Variable                 | Required | Description                                         |
+| ------------------------ | -------- | --------------------------------------------------- |
+| `PLANE_BASE_URL`         | Yes      | Your Plane instance URL                             |
+| `PLANE_API_KEY`          | Yes      | Personal Plane API token                            |
+| `DEFAULT_WORKSPACE_SLUG` | Yes      | Workspace slug from your Plane URL                  |
+| `PLANE_MCP_EXTENDED`     | No       | Set to `true` to enable all 108 tools (default: 77) |
 
 ---
 
@@ -105,36 +105,36 @@ By default, the server exposes **77 core tools** — optimized for reliable tool
 
 ### Core Tools (always available)
 
-| Category             | Tools                                                                      |
-| -------------------- | -------------------------------------------------------------------------- |
-| Projects             | list, create, retrieve, update, delete projects; get members               |
-| Work Items           | list, search, create, update, delete; retrieve by identifier (e.g. DEV-42) |
-| States & Labels      | list, create, retrieve, update, delete states and labels                   |
-| Cycles               | list, create, retrieve, update, delete; manage cycle work items; transfer  |
-| Modules              | list, create, retrieve, update, delete; manage module work items           |
-| Epics                | list, create, retrieve, update, delete epics                               |
-| Milestones           | list, create, retrieve, update, delete; manage milestone work items        |
-| Initiatives          | list, create, retrieve, update, delete initiatives                         |
-| Comments             | list, create, retrieve, update, delete comments on work items              |
-| Relations & Links    | manage work item relations and external links                              |
-| Activities           | list work item activities (audit log)                                      |
-| Pages                | create, retrieve pages (workspace or project)                              |
-| Workspace            | get current user, get members                                              |
-| Bulk Operations      | `bulk_create_work_items` — create many items with rate-limit handling       |
+| Category          | Tools                                                                      |
+| ----------------- | -------------------------------------------------------------------------- |
+| Projects          | list, create, retrieve, update, delete projects; get members               |
+| Work Items        | list, search, create, update, delete; retrieve by identifier (e.g. DEV-42) |
+| States & Labels   | list, create, retrieve, update, delete states and labels                   |
+| Cycles            | list, create, retrieve, update, delete; manage cycle work items; transfer  |
+| Modules           | list, create, retrieve, update, delete; manage module work items           |
+| Epics             | list, create, retrieve, update, delete epics                               |
+| Milestones        | list, create, retrieve, update, delete; manage milestone work items        |
+| Initiatives       | list, create, retrieve, update, delete initiatives                         |
+| Comments          | list, create, retrieve, update, delete comments on work items              |
+| Relations & Links | manage work item relations and external links                              |
+| Activities        | list work item activities (audit log)                                      |
+| Pages             | create, retrieve pages (workspace or project)                              |
+| Workspace         | get current user, get members                                              |
+| Bulk Operations   | `bulk_create_work_items` — create many items with rate-limit handling      |
 
 ### Extended Tools (`PLANE_MCP_EXTENDED=true`)
 
-| Category             | Tools                                                       |
-| -------------------- | ----------------------------------------------------------- |
-| Project Admin        | get/update project features; project worklog summary        |
-| Workspace Admin      | get/update workspace features                               |
-| Cycle Archives       | archive, unarchive, list archived cycles                    |
-| Module Archives      | archive, unarchive, list archived modules                   |
-| Work Item Types      | list, create, retrieve, update, delete work item types      |
-| Work Item Properties | list, create, retrieve, update, delete custom properties    |
-| Intake               | list, create, retrieve, update, delete intake work items    |
-| Time Tracking        | list, create, update, delete work logs                      |
-| Activities (extra)   | retrieve individual activity entries                        |
+| Category             | Tools                                                    |
+| -------------------- | -------------------------------------------------------- |
+| Project Admin        | get/update project features; project worklog summary     |
+| Workspace Admin      | get/update workspace features                            |
+| Cycle Archives       | archive, unarchive, list archived cycles                 |
+| Module Archives      | archive, unarchive, list archived modules                |
+| Work Item Types      | list, create, retrieve, update, delete work item types   |
+| Work Item Properties | list, create, retrieve, update, delete custom properties |
+| Intake               | list, create, retrieve, update, delete intake work items |
+| Time Tracking        | list, create, update, delete work logs                   |
+| Activities (extra)   | retrieve individual activity entries                     |
 
 ---
 

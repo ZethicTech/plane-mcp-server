@@ -85,7 +85,8 @@ Example: _"Create a new cycle (sprint) in a project. The owned_by field requires
 ## Code Style
 
 - ESLint + Prettier enforce style automatically
-- Run `npm run format:fix` before committing
+- A pre-commit hook runs `lint-staged` (ESLint + Prettier) on staged files — if it fails, fix the issues before committing
+- Run `npm run format:fix` to auto-fix formatting
 - TypeScript strict mode is enabled
 
 ## Pull Requests
