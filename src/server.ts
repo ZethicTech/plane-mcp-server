@@ -92,11 +92,36 @@ export function createServer(resolveClient: () => PlaneClient): Server {
   }));
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
-    return { tools: cachedToolsList };
+    return {
+      tools: [
+        {
+          name: 'get_server_version',
+          description: 'Returns the Plane MCP server name and version.',
+          inputSchema: { type: 'object', properties: {} },
+        },
+        ...cachedToolsList,
+      ],
+    };
   });
 
   server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
+
+    if (name === 'get_server_version') {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(
+              { name: 'plane-mcp-server', version: process.env.PACKAGE_VERSION ?? '0.0.0' },
+              null,
+              2,
+            ),
+          },
+        ],
+      };
+    }
+
     const tool = toolMap.get(name);
 
     if (!tool) {
