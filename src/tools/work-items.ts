@@ -6,7 +6,7 @@ export const workItemTools: ToolDef[] = [
   {
     name: 'list_work_items',
     description:
-      'List work items (issues) in a project. Supports filtering by priority, state, state_group, assignees, labels, dates, cycle, and module. Use expand=relations,assignees,labels for richer data. Results are paginated — use the cursor from the response to fetch the next page.',
+      'List work items (issues) in a project. Supports filtering by priority, state, state_group, assignees, labels, dates, cycle, and module. Use expand=relations,assignees,labels for richer data. Results are paginated — use the cursor from the response to fetch the next page. When linking to a work item, use the format: {PLANE_BASE_URL}/{workspace_slug}/browse/{project_identifier}-{sequence_id}/',
     inputSchema: {
       type: 'object',
       required: ['project_id'],
@@ -156,7 +156,7 @@ export const workItemTools: ToolDef[] = [
   {
     name: 'search_work_items',
     description:
-      'Search for work items across the entire workspace by text query. Matches against item names and descriptions. Use this when you need to find items without knowing the project_id.',
+      'Search for work items across the entire workspace by text query. Matches against item names and descriptions. Use this when you need to find items without knowing the project_id. When linking to a work item, use the format: {PLANE_BASE_URL}/{workspace_slug}/browse/{project_identifier}-{sequence_id}/',
     inputSchema: {
       type: 'object',
       required: ['query'],
