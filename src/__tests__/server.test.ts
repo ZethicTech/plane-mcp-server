@@ -3,8 +3,8 @@ import { ALL_TOOLS } from '../server.js';
 import { getToolAnnotations } from '../tools/registry.js';
 
 describe('ALL_TOOLS', () => {
-  it('registers 110 tools', () => {
-    expect(ALL_TOOLS.length).toBe(110);
+  it('registers 77 core tools by default', () => {
+    expect(ALL_TOOLS.length).toBe(77);
   });
 
   it('has no duplicate tool names', () => {

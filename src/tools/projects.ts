@@ -2,7 +2,7 @@ import { ToolDef, nullable, nullableInt, nullableBool, nullableObject } from './
 
 const WS = '/api/v1/workspaces/{__ws}';
 
-export const projectTools: ToolDef[] = [
+export const projectCoreTools: ToolDef[] = [
   {
     name: 'list_projects',
     description:
@@ -115,6 +115,24 @@ export const projectTools: ToolDef[] = [
     pathParams: ['project_id'],
   },
   {
+    name: 'get_project_members',
+    description: 'Get all members of a project.',
+    inputSchema: {
+      type: 'object',
+      required: ['project_id'],
+      properties: {
+        project_id: { type: 'string' },
+        params: nullableObject(),
+      },
+    },
+    method: 'GET',
+    pathTemplate: `${WS}/projects/{project_id}/members/`,
+    pathParams: ['project_id'],
+  },
+];
+
+export const projectAdminTools: ToolDef[] = [
+  {
     name: 'get_project_features',
     description: 'Get features of a project.',
     inputSchema: {
@@ -145,21 +163,6 @@ export const projectTools: ToolDef[] = [
     },
     method: 'PATCH',
     pathTemplate: `${WS}/projects/{project_id}/features/`,
-    pathParams: ['project_id'],
-  },
-  {
-    name: 'get_project_members',
-    description: 'Get all members of a project.',
-    inputSchema: {
-      type: 'object',
-      required: ['project_id'],
-      properties: {
-        project_id: { type: 'string' },
-        params: nullableObject(),
-      },
-    },
-    method: 'GET',
-    pathTemplate: `${WS}/projects/{project_id}/members/`,
     pathParams: ['project_id'],
   },
   {

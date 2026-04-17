@@ -6,6 +6,17 @@
 
 Connect Claude to your Plane workspace to manage projects, work items, cycles, modules, and more — directly from Claude.
 
+### How is this different from the official Plane MCP?
+
+The [official Plane MCP server](https://github.com/makeplane/plane-mcp-server) is Python-based and supports both cloud and self-hosted Plane instances. It offers OAuth, hosted HTTP endpoints (`mcp.plane.so`), and Redis-backed sessions. This package is a **lightweight Node.js alternative**:
+
+- **Zero infrastructure** — runs locally via `npx`, no Python/Docker/Redis needed
+- **Single dependency** — just `@modelcontextprotocol/sdk`, installs in seconds
+- **Optimized tool count** — 77 core tools by default (vs 80+ in the official server) tuned for reliable AI model tool selection, with an opt-in extended mode for full 108-tool coverage
+- **Bulk operations** — `bulk_create_work_items` with automatic rate-limit handling (not in the official server)
+
+Use the official server if you need OAuth or hosted HTTP transport. Use this one if you want a fast, minimal Node.js MCP that works over stdio.
+
 ## Prerequisites
 
 You need a **Plane API key**. To generate one:
@@ -51,12 +62,15 @@ Add to your `claude_desktop_config.json`:
       "env": {
         "PLANE_BASE_URL": "https://your-plane-instance.com",
         "PLANE_API_KEY": "YOUR_PLANE_API_KEY",
-        "DEFAULT_WORKSPACE_SLUG": "your-workspace-slug"
+        "DEFAULT_WORKSPACE_SLUG": "your-workspace-slug",
+        "PLANE_MCP_EXTENDED": "false"
       }
     }
   }
 }
 ```
+
+> Set `PLANE_MCP_EXTENDED` to `"true"` to enable all 108 tools (admin, archives, intake, time tracking, etc.). Leave as `"false"` or omit for the default 77 core tools.
 
 Restart Claude Desktop after saving.
 
@@ -68,40 +82,59 @@ claude mcp add plane \
   --args "@zethictech/plane-mcp-server" \
   --env PLANE_BASE_URL=https://your-plane-instance.com \
   --env PLANE_API_KEY=YOUR_PLANE_API_KEY \
-  --env DEFAULT_WORKSPACE_SLUG=your-workspace-slug
+  --env DEFAULT_WORKSPACE_SLUG=your-workspace-slug \
+  --env PLANE_MCP_EXTENDED=false
 ```
+
+> Add `--env PLANE_MCP_EXTENDED=true` for the full 108-tool set.
 
 ### Environment Variables
 
-| Variable                 | Required | Description                        |
-| ------------------------ | -------- | ---------------------------------- |
-| `PLANE_BASE_URL`         | Yes      | Your Plane instance URL            |
-| `PLANE_API_KEY`          | Yes      | Personal Plane API token           |
-| `DEFAULT_WORKSPACE_SLUG` | Yes      | Workspace slug from your Plane URL |
+| Variable                 | Required | Description                                          |
+| ------------------------ | -------- | ---------------------------------------------------- |
+| `PLANE_BASE_URL`         | Yes      | Your Plane instance URL                              |
+| `PLANE_API_KEY`          | Yes      | Personal Plane API token                             |
+| `DEFAULT_WORKSPACE_SLUG` | Yes      | Workspace slug from your Plane URL                   |
+| `PLANE_MCP_EXTENDED`     | No       | Set to `true` to enable all 108 tools (default: 77)  |
 
 ---
 
-## Available Tools (110)
+## Available Tools
 
-| Category             | Tools                                                                             |
-| -------------------- | --------------------------------------------------------------------------------- |
-| Projects             | list, create, update, delete projects; get/update features; get members           |
-| Work Items           | list, search, create, update, delete; retrieve by identifier (e.g. DEV-42)        |
-| Work Item Types      | list, create, update, delete work item types                                      |
-| Work Item Properties | list, create, update, delete custom properties                                    |
-| States & Labels      | list, create, update, delete states and labels                                    |
-| Cycles               | list, create, update, delete, archive/unarchive cycles; manage cycle work items   |
-| Modules              | list, create, update, delete, archive/unarchive modules; manage module work items |
-| Epics                | list, create, update, delete epics                                                |
-| Milestones           | list, create, update, delete milestones; manage milestone work items              |
-| Initiatives          | list, create, update, delete initiatives                                          |
-| Intake               | list, create, update, delete intake work items                                    |
-| Comments             | list, create, update, delete comments on work items                               |
-| Relations & Links    | manage work item relations and external links                                     |
-| Time Tracking        | create, update, list, delete work logs; get project worklog summary               |
-| Pages                | create, retrieve project and workspace pages                                      |
-| Workspace            | get current user, get members, get/update workspace features                      |
-| Bulk Operations      | `bulk_create_work_items` — create many items with automatic rate-limit handling   |
+By default, the server exposes **77 core tools** — optimized for reliable tool selection by AI models. Set `PLANE_MCP_EXTENDED=true` to enable all 108 tools including admin, archive, and niche features.
+
+### Core Tools (always available)
+
+| Category             | Tools                                                                      |
+| -------------------- | -------------------------------------------------------------------------- |
+| Projects             | list, create, retrieve, update, delete projects; get members               |
+| Work Items           | list, search, create, update, delete; retrieve by identifier (e.g. DEV-42) |
+| States & Labels      | list, create, retrieve, update, delete states and labels                   |
+| Cycles               | list, create, retrieve, update, delete; manage cycle work items; transfer  |
+| Modules              | list, create, retrieve, update, delete; manage module work items           |
+| Epics                | list, create, retrieve, update, delete epics                               |
+| Milestones           | list, create, retrieve, update, delete; manage milestone work items        |
+| Initiatives          | list, create, retrieve, update, delete initiatives                         |
+| Comments             | list, create, retrieve, update, delete comments on work items              |
+| Relations & Links    | manage work item relations and external links                              |
+| Activities           | list work item activities (audit log)                                      |
+| Pages                | create, retrieve pages (workspace or project)                              |
+| Workspace            | get current user, get members                                              |
+| Bulk Operations      | `bulk_create_work_items` — create many items with rate-limit handling       |
+
+### Extended Tools (`PLANE_MCP_EXTENDED=true`)
+
+| Category             | Tools                                                       |
+| -------------------- | ----------------------------------------------------------- |
+| Project Admin        | get/update project features; project worklog summary        |
+| Workspace Admin      | get/update workspace features                               |
+| Cycle Archives       | archive, unarchive, list archived cycles                    |
+| Module Archives      | archive, unarchive, list archived modules                   |
+| Work Item Types      | list, create, retrieve, update, delete work item types      |
+| Work Item Properties | list, create, retrieve, update, delete custom properties    |
+| Intake               | list, create, retrieve, update, delete intake work items    |
+| Time Tracking        | list, create, update, delete work logs                      |
+| Activities (extra)   | retrieve individual activity entries                        |
 
 ---
 

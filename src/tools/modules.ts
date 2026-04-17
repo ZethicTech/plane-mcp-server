@@ -2,7 +2,7 @@ import { ToolDef, nullable, nullableStringArray, nullableObject } from './regist
 
 const WS = '/api/v1/workspaces/{__ws}';
 
-export const moduleTools: ToolDef[] = [
+export const moduleCoreTools: ToolDef[] = [
   {
     name: 'list_modules',
     description:
@@ -146,6 +146,9 @@ export const moduleTools: ToolDef[] = [
     pathTemplate: `${WS}/projects/{project_id}/modules/{module_id}/module-issues/{work_item_id}/`,
     pathParams: ['project_id', 'module_id', 'work_item_id'],
   },
+];
+
+export const moduleArchiveTools: ToolDef[] = [
   {
     name: 'archive_module',
     description: 'Archive a module.',

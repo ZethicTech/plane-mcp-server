@@ -2,7 +2,7 @@ import { ToolDef, nullable, nullableInt } from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
 
-export const workItemActivityTools: ToolDef[] = [
+export const workItemActivityCoreTools: ToolDef[] = [
   {
     name: 'list_work_item_activities',
     description: 'List all activities (history/audit log) for a work item.',
@@ -24,6 +24,9 @@ export const workItemActivityTools: ToolDef[] = [
     pathParams: ['project_id', 'work_item_id'],
     queryParams: ['cursor', 'expand', 'fields', 'order_by', 'per_page'],
   },
+];
+
+export const workItemActivityExtendedTools: ToolDef[] = [
   {
     name: 'retrieve_work_item_activity',
     description: 'Retrieve a single activity entry by ID.',

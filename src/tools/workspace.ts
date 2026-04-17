@@ -2,7 +2,7 @@ import { ToolDef, nullableBool } from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
 
-export const workspaceTools: ToolDef[] = [
+export const workspaceCoreTools: ToolDef[] = [
   {
     name: 'get_me',
     description:
@@ -27,6 +27,9 @@ export const workspaceTools: ToolDef[] = [
     pathTemplate: `${WS}/members/`,
     pathParams: [],
   },
+];
+
+export const workspaceAdminTools: ToolDef[] = [
   {
     name: 'get_workspace_features',
     description: 'Get workspace features.',

@@ -2,7 +2,7 @@ import { ToolDef, nullable, nullableObject } from './registry.js';
 
 const WS = '/api/v1/workspaces/{__ws}';
 
-export const cycleTools: ToolDef[] = [
+export const cycleCoreTools: ToolDef[] = [
   {
     name: 'list_cycles',
     description:
@@ -162,6 +162,9 @@ export const cycleTools: ToolDef[] = [
     pathTemplate: `${WS}/projects/{project_id}/cycles/{cycle_id}/transfer-issues/`,
     pathParams: ['project_id', 'cycle_id'],
   },
+];
+
+export const cycleArchiveTools: ToolDef[] = [
   {
     name: 'archive_cycle',
     description: 'Archive a cycle.',

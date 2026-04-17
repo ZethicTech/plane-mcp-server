@@ -3,51 +3,74 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprot
 import { PlaneClient } from './plane-client.js';
 import { ToolDef, executeToolDef, getToolAnnotations } from './tools/registry.js';
 
-// Import all tool definitions
-import { projectTools } from './tools/projects.js';
+// Import core tool definitions
+import { projectCoreTools, projectAdminTools } from './tools/projects.js';
 import { workItemTools } from './tools/work-items.js';
 import { stateTools } from './tools/states.js';
 import { labelTools } from './tools/labels.js';
-import { cycleTools } from './tools/cycles.js';
-import { moduleTools } from './tools/modules.js';
+import { cycleCoreTools, cycleArchiveTools } from './tools/cycles.js';
+import { moduleCoreTools, moduleArchiveTools } from './tools/modules.js';
 import { epicTools } from './tools/epics.js';
 import { milestoneTools } from './tools/milestones.js';
 import { initiativeTools } from './tools/initiatives.js';
 import { intakeTools } from './tools/intake.js';
 import { pageTools } from './tools/pages.js';
-import { workspaceTools } from './tools/workspace.js';
+import { workspaceCoreTools, workspaceAdminTools } from './tools/workspace.js';
 import { workItemCommentTools } from './tools/work-item-comments.js';
 import { workItemLinkTools } from './tools/work-item-links.js';
 import { workItemRelationTools } from './tools/work-item-relations.js';
-import { workItemActivityTools } from './tools/work-item-activities.js';
+import {
+  workItemActivityCoreTools,
+  workItemActivityExtendedTools,
+} from './tools/work-item-activities.js';
 import { workItemPropertyTools } from './tools/work-item-properties.js';
 import { workItemTypeTools } from './tools/work-item-types.js';
 import { workLogTools } from './tools/work-logs.js';
 import { bulkCreateTools } from './tools/bulk-create.js';
 
+function buildToolList(): ToolDef[] {
+  const isExtended = process.env.PLANE_MCP_EXTENDED === 'true';
+
+  const tools: ToolDef[] = [
+    // Core tools — always included
+    ...projectCoreTools,
+    ...workItemTools,
+    ...stateTools,
+    ...labelTools,
+    ...cycleCoreTools,
+    ...moduleCoreTools,
+    ...epicTools,
+    ...milestoneTools,
+    ...initiativeTools,
+    ...pageTools,
+    ...workspaceCoreTools,
+    ...workItemCommentTools,
+    ...workItemLinkTools,
+    ...workItemRelationTools,
+    ...workItemActivityCoreTools,
+    ...bulkCreateTools,
+  ];
+
+  // Extended tools — only when PLANE_MCP_EXTENDED=true
+  if (isExtended) {
+    tools.push(
+      ...projectAdminTools,
+      ...workspaceAdminTools,
+      ...cycleArchiveTools,
+      ...moduleArchiveTools,
+      ...workItemTypeTools,
+      ...workItemPropertyTools,
+      ...intakeTools,
+      ...workLogTools,
+      ...workItemActivityExtendedTools,
+    );
+  }
+
+  return tools;
+}
+
 // All tools in one array
-const ALL_TOOLS: ToolDef[] = [
-  ...projectTools,
-  ...workItemTools,
-  ...stateTools,
-  ...labelTools,
-  ...cycleTools,
-  ...moduleTools,
-  ...epicTools,
-  ...milestoneTools,
-  ...initiativeTools,
-  ...intakeTools,
-  ...pageTools,
-  ...workspaceTools,
-  ...workItemCommentTools,
-  ...workItemLinkTools,
-  ...workItemRelationTools,
-  ...workItemActivityTools,
-  ...workItemPropertyTools,
-  ...workItemTypeTools,
-  ...workLogTools,
-  ...bulkCreateTools,
-];
+const ALL_TOOLS: ToolDef[] = buildToolList();
 
 // Build lookup map
 const toolMap = new Map<string, ToolDef>();
