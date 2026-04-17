@@ -8,6 +8,7 @@ export interface ToolDef {
   pathTemplate: string;
   pathParams: string[];
   queryParams?: string[];
+  bodyRenames?: Record<string, string>;
   handler?: (client: PlaneClient, args: Record<string, unknown>) => Promise<unknown>;
 }
 
@@ -75,9 +76,21 @@ export async function executeToolDef(
 
   const bodyArgs: Record<string, unknown> = {};
   const skipKeys = new Set([...def.pathParams, ...(def.queryParams || []), 'params', '__ws']);
+  const renames = def.bodyRenames || {};
+
+  // Detect collisions: if args contains both a rename source and its target
+  // (e.g. both state_id and state), throw rather than silently overwriting.
+  for (const [from, to] of Object.entries(renames)) {
+    if (args[from] != null && args[to] != null && !skipKeys.has(from) && !skipKeys.has(to)) {
+      throw new Error(
+        `Conflicting body arguments: "${from}" is renamed to "${to}", but "${to}" is also present. Provide one or the other, not both.`,
+      );
+    }
+  }
+
   for (const [key, value] of Object.entries(args)) {
     if (!skipKeys.has(key) && value !== undefined && value !== null) {
-      bodyArgs[key] = value;
+      bodyArgs[renames[key] || key] = value;
     }
   }
 

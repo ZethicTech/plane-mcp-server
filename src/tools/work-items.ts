@@ -88,6 +88,7 @@ export const workItemTools: ToolDef[] = [
     method: 'POST',
     pathTemplate: `${WS}/projects/{project_id}/issues/`,
     pathParams: ['project_id'],
+    bodyRenames: { state_id: 'state', parent_id: 'parent', type_id: 'type' },
   },
   {
     name: 'retrieve_work_item',
@@ -137,6 +138,7 @@ export const workItemTools: ToolDef[] = [
     method: 'PATCH',
     pathTemplate: `${WS}/projects/{project_id}/issues/{work_item_id}/`,
     pathParams: ['project_id', 'work_item_id'],
+    bodyRenames: { state_id: 'state', parent_id: 'parent', type_id: 'type' },
   },
   {
     name: 'delete_work_item',
