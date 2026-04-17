@@ -1,7 +1,5 @@
 import { ToolDef, nullable, nullableInt, nullableBool, nullableObject } from './registry.js';
 
-const WS = '/api/v1/workspaces/{__ws}';
-
 export const pageTools: ToolDef[] = [
   {
     name: 'create_page',
