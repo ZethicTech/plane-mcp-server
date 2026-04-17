@@ -1,6 +1,6 @@
 {
   "name": "@zethictech/plane-mcp-server",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Connect your self-hosted Plane workspace to any MCP-compatible AI client to manage projects, work items, cycles and modules.",
   "type": "module",
   "bin": {
