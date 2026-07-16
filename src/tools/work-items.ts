@@ -175,7 +175,10 @@ export const workItemTools: ToolDef[] = [
       },
     },
     method: 'GET',
-    pathTemplate: `${WS}/work-items/search/`,
+    // issues/search/ is a legacy alias of work-items/search/ that hits the same
+    // view; it works on self-hosted Plane v0.28.0+, whereas work-items/search/
+    // only exists from v1.1.0.
+    pathTemplate: `${WS}/issues/search/`,
     pathParams: [],
     handler: async (client, args) => {
       const queryParams: Record<string, string> = {
@@ -184,7 +187,7 @@ export const workItemTools: ToolDef[] = [
       };
       if (args.project_id) queryParams.project_id = String(args.project_id);
       if (args.limit) queryParams.limit = String(args.limit);
-      return client.get(client.workspacePath('work-items/search/'), queryParams);
+      return client.get(client.workspacePath('issues/search/'), queryParams);
     },
   },
   {

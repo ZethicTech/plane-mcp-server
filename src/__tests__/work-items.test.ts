@@ -19,12 +19,12 @@ function mockGetClient() {
 }
 
 describe('search_work_items', () => {
-  it('calls the work-items/search endpoint with workspace-wide search by default', async () => {
+  it('calls the issues/search endpoint with workspace-wide search by default', async () => {
     const { client, captured } = mockGetClient();
 
     await executeToolDef(searchTool, client, { query: 'login bug' });
 
-    expect(captured.path).toBe('/api/v1/workspaces/test-ws/work-items/search/');
+    expect(captured.path).toBe('/api/v1/workspaces/test-ws/issues/search/');
     expect(captured.params).toEqual({ search: 'login bug', workspace_search: 'true' });
   });
 
@@ -37,7 +37,7 @@ describe('search_work_items', () => {
       limit: 25,
     });
 
-    expect(captured.path).toBe('/api/v1/workspaces/test-ws/work-items/search/');
+    expect(captured.path).toBe('/api/v1/workspaces/test-ws/issues/search/');
     expect(captured.params).toEqual({
       search: 'login bug',
       workspace_search: 'false',
