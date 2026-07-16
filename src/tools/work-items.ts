@@ -186,7 +186,7 @@ export const workItemTools: ToolDef[] = [
         workspace_search: args.project_id ? 'false' : 'true',
       };
       if (args.project_id) queryParams.project_id = String(args.project_id);
-      if (args.limit) queryParams.limit = String(args.limit);
+      if (args.limit != null) queryParams.limit = String(args.limit);
       return client.get(client.workspacePath('issues/search/'), queryParams);
     },
   },
