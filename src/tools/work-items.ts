@@ -158,7 +158,7 @@ export const workItemTools: ToolDef[] = [
   {
     name: 'search_work_items',
     description:
-      'Search for work items by text query. Matches against item names, sequence IDs, and project identifiers. Searches the entire workspace unless project_id is given. When linking to a work item, use the format: {PLANE_BASE_URL}/{workspace_slug}/browse/{project_identifier}-{sequence_id}/',
+      'Search for work items by text query. Matches against item names, sequence IDs, and project identifiers. Searches the entire workspace unless project_id is given. Results contain summary fields only (name, id, sequence_id, project identifier); use retrieve_work_item for full details. When linking to a work item, use the format: {PLANE_BASE_URL}/{workspace_slug}/browse/{project_identifier}-{sequence_id}/',
     inputSchema: {
       type: 'object',
       required: ['query'],
@@ -169,7 +169,8 @@ export const workItemTools: ToolDef[] = [
           description: 'Restrict the search to a single project by its UUID.',
         },
         limit: {
-          ...nullable('integer'),
+          ...nullableInt(),
+          minimum: 1,
           description: 'Maximum number of results to return (default 10).',
         },
       },

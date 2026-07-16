@@ -46,22 +46,19 @@ describe('search_work_items', () => {
     });
   });
 
-  it('passes limit of 0 instead of dropping it', async () => {
-    const { client, captured } = mockGetClient();
-
-    await executeToolDef(searchTool, client, { query: 'login bug', limit: 0 });
-
-    expect(captured.params).toEqual({
-      search: 'login bug',
-      workspace_search: 'true',
-      limit: '0',
-    });
+  it('only accepts parameters supported by the Plane search endpoint', () => {
+    const schema = searchTool.inputSchema as {
+      required: string[];
+      properties: Record<string, Record<string, unknown>>;
+    };
+    expect(Object.keys(schema.properties).sort()).toEqual(['limit', 'project_id', 'query']);
+    expect(schema.required).toEqual(['query']);
   });
 
-  it('only accepts parameters supported by the Plane search endpoint', () => {
-    const properties = Object.keys(
-      (searchTool.inputSchema as { properties: Record<string, unknown> }).properties,
-    );
-    expect(properties.sort()).toEqual(['limit', 'project_id', 'query']);
+  it('constrains limit to a positive integer', () => {
+    const schema = searchTool.inputSchema as {
+      properties: Record<string, Record<string, unknown>>;
+    };
+    expect(schema.properties.limit.minimum).toBe(1);
   });
 });
