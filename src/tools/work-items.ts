@@ -158,30 +158,37 @@ export const workItemTools: ToolDef[] = [
   {
     name: 'search_work_items',
     description:
-      'Search for work items across the entire workspace by text query. Matches against item names and descriptions. Use this when you need to find items without knowing the project_id. When linking to a work item, use the format: {PLANE_BASE_URL}/{workspace_slug}/browse/{project_identifier}-{sequence_id}/',
+      'Search for work items by text query. Matches against item names, sequence IDs, and project identifiers. Searches the entire workspace unless project_id is given. Results contain summary fields only (name, id, sequence_id, project identifier); use retrieve_work_item for full details. When linking to a work item, use the format: {PLANE_BASE_URL}/{workspace_slug}/browse/{project_identifier}-{sequence_id}/',
     inputSchema: {
       type: 'object',
       required: ['query'],
       properties: {
         query: { type: 'string', description: 'The search text to look for in work items.' },
-        expand: nullable('string'),
-        fields: nullable('string'),
-        order_by: nullable('string'),
-        external_id: nullable('string'),
-        external_source: nullable('string'),
+        project_id: {
+          ...nullable('string'),
+          description: 'Restrict the search to a single project by its UUID.',
+        },
+        limit: {
+          ...nullableInt(),
+          minimum: 1,
+          description: 'Maximum number of results to return (default 10).',
+        },
       },
     },
     method: 'GET',
-    pathTemplate: `${WS}/search/issues/`,
+    // issues/search/ is a legacy alias of work-items/search/ that hits the same
+    // view; it works on self-hosted Plane v0.28.0+, whereas work-items/search/
+    // only exists from v1.1.0.
+    pathTemplate: `${WS}/issues/search/`,
     pathParams: [],
     handler: async (client, args) => {
-      const queryParams: Record<string, string> = { search: String(args.query) };
-      if (args.expand) queryParams.expand = String(args.expand);
-      if (args.fields) queryParams.fields = String(args.fields);
-      if (args.order_by) queryParams.order_by = String(args.order_by);
-      if (args.external_id) queryParams.external_id = String(args.external_id);
-      if (args.external_source) queryParams.external_source = String(args.external_source);
-      return client.get(client.workspacePath('search/issues/'), queryParams);
+      const queryParams: Record<string, string> = {
+        search: String(args.query),
+        workspace_search: args.project_id ? 'false' : 'true',
+      };
+      if (args.project_id) queryParams.project_id = String(args.project_id);
+      if (args.limit != null) queryParams.limit = String(args.limit);
+      return client.get(client.workspacePath('issues/search/'), queryParams);
     },
   },
   {
