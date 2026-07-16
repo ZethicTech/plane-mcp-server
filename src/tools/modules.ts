@@ -116,14 +116,14 @@ export const moduleCoreTools: ToolDef[] = [
   {
     name: 'add_work_items_to_module',
     description:
-      'Add work items to a module. Provide an array of work item UUIDs in issue_ids. Get work item IDs from list_work_items and module_id from list_modules.',
+      'Add work items to a module. Provide an array of work item UUIDs in issues. Get work item IDs from list_work_items and module_id from list_modules.',
     inputSchema: {
       type: 'object',
-      required: ['project_id', 'module_id', 'issue_ids'],
+      required: ['project_id', 'module_id', 'issues'],
       properties: {
         project_id: { type: 'string' },
         module_id: { type: 'string' },
-        issue_ids: { items: { type: 'string' }, type: 'array' },
+        issues: { items: { format: 'uuid', type: 'string' }, type: 'array' },
       },
     },
     method: 'POST',
