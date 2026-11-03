@@ -166,3 +166,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and how to add new
 ## License
 
 MIT
+
+## Built by Zethic
+
+`plane-mcp-server` is built and maintained by **[Zethic](https://zethic.com)**, a software and AI engineering studio in Bengaluru. Read how we built it: [How Zethic connected Claude to its task tracker with a Plane MCP server](https://zethic.com/how-zethic-connected-claude-to-its-task-tracker-with-a-plane-mcp-server/).
+
+Need AI agents working inside your own tools? We do **[agentic AI development](https://zethic.com/ai/agentic-ai-development-services/)** — [hire dedicated engineers or talk to us about consulting →](https://zethic.com/contact-us/)
